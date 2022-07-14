@@ -5,9 +5,9 @@ My goal for the first Version is to have:
 
 - [x] Create Files
 - [x] Create Folders
-- [] Rename Folders
-- [] Rename Folders
-- [] Delete Files/Folders
+- [ ] Rename Folders
+- [ ] Rename Folders
+- [ ] Delete Files/Folders
 
 ## Commands:
 - Files: Create File
