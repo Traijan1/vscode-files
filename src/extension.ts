@@ -1,8 +1,6 @@
 import * as vscode from 'vscode';
 
 export function activate(context: vscode.ExtensionContext) {
-	console.log('Congratulations, your extension "files" is now active!');
-
     context.subscriptions.push(vscode.commands.registerCommand("files.createFile", async () => await create("File", createFile)));
     context.subscriptions.push(vscode.commands.registerCommand("files.createFolder", async () => await create("Folder", createFolder)));
     context.subscriptions.push(vscode.commands.registerCommand("files.rename", async () => await rename(renameItem)));
