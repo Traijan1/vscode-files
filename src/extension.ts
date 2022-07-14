@@ -5,6 +5,8 @@ export function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(vscode.commands.registerCommand("files.createFile", async () => await create("File", createFile)));
     context.subscriptions.push(vscode.commands.registerCommand("files.createFolder", async () => await create("Folder", createFolder)));
+    context.subscriptions.push(vscode.commands.registerCommand("files.renameFile", async () => await create("Folder", createFolder)));
+    context.subscriptions.push(vscode.commands.registerCommand("files.renameFolder", async () => await rename("Folder", renameFolder)));
 }
 
 export function deactivate() {}
@@ -44,6 +46,55 @@ async function create(what: string, fn: Function) {
 
         await fn(name, workspace);
     }
+}
+
+async function rename(what: string, fn: Function) {
+    let oldName = await vscode.window.showInputBox({
+        title: `Rename ${what}`,
+        placeHolder: `Enter the old ${what}name..`
+    });
+
+    let newName = await vscode.window.showInputBox({
+        title: `Rename ${what}`,
+        placeHolder: `Enter the new ${what}name..`
+    });
+
+    if(oldName === undefined || newName === undefined)
+        return;
+    
+    const workspaceFolders = vscode.workspace.workspaceFolders;
+
+    if(workspaceFolders === undefined) {
+        return;
+    }
+
+    if(workspaceFolders.length == 1) {
+        await fn(oldName, newName, workspaceFolders[0]);
+    }
+    else {
+        let items: string[] = [];
+
+        for(const workspace of workspaceFolders)
+            items.push(workspace.name);
+
+        let workspaceName = await vscode.window.showQuickPick(items, {
+            canPickMany: false
+        });
+
+        let workspace = workspaceFolders.find((workspace, index, _) => workspace.name == workspaceName);
+
+        if(workspace === undefined)
+            return;
+
+        await fn(oldName, newName, workspace);
+    }
+}
+
+async function renameFolder(oldName: string, newName: string, workspace: vscode.WorkspaceFolder) {
+    let uri = vscode.Uri.parse(`${workspace.uri}`);
+    let folders = await getFolders(uri);
+
+    await vscode.workspace.fs.rename(vscode.Uri.parse(`${folders}/${oldName}`), vscode.Uri.parse(`${folders}/${newName}`));
 }
 
 async function createFile(filename: string, workspace: vscode.WorkspaceFolder) {
