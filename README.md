@@ -5,10 +5,10 @@ My goal for the first Version is to have:
 
 - [x] Create Files
 - [x] Create Folders
-- [ ] Rename Files
-- [ ] Rename Folders
+- [x] Rename Files/Folders
 - [ ] Delete Files/Folders
 
 ## Commands:
 - Files: Create File
 - Files: Create Folder
+- Files: Rename

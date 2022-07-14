@@ -11,7 +11,8 @@
 	],
 	"activationEvents": [
         "onCommand:files.createFile",
-        "onCommand:files.createFolder"
+        "onCommand:files.createFolder",
+        "onCommand:files.rename"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
@@ -23,6 +24,10 @@
 			{
 				"command": "files.createFolder",
 				"title": "Files: Create Folder"
+			},
+			{
+				"command": "files.rename",
+				"title": "Files: Rename"
 			}
 		]
 	},
