@@ -5,7 +5,7 @@ My goal for the first Version is to have:
 
 - [x] Create Files
 - [x] Create Folders
-- [ ] Rename Folders
+- [ ] Rename Files
 - [ ] Rename Folders
 - [ ] Delete Files/Folders
 
